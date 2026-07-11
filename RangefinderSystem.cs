@@ -1,52 +1,52 @@
 using System;
 using UnityEngine;
 
-internal static class RangeFinderSystem
+internal static class RangefinderSystem
 {
-    private static RangeFinderHUD rangeFinderHUD;
+    private static RangefinderHUD rangefinderHUD;
     private static bool isInitialized;
 
-    private static bool EnableRangeFinder =>
-        RangeFinderMod.enableRangeFinder != null && RangeFinderMod.enableRangeFinder.Value;
+    private static bool EnableRangefinder =>
+        RangefinderMod.enableRangefinder != null && RangefinderMod.enableRangefinder.Value;
 
     private static float MaxRange =>
-        RangeFinderMod.rangeFinderMaxRange != null ? RangeFinderMod.rangeFinderMaxRange.Value : 500f;
+        RangefinderMod.rangefinderMaxRange != null ? RangefinderMod.rangefinderMaxRange.Value : 500f;
 
     private static LayerMask raycastLayers;
 
-    static RangeFinderSystem()
+    static RangefinderSystem()
     {
         raycastLayers = LayerMask.GetMask("Default", "Terrain", "Environment");
     }
 
     public static void Initialize()
     {
-        if (isInitialized && rangeFinderHUD != null && rangeFinderHUD.IsAlive)
+        if (isInitialized && rangefinderHUD != null && rangefinderHUD.IsAlive)
             return;
 
         try
         {
-            if (rangeFinderHUD == null)
-                rangeFinderHUD = new RangeFinderHUD();
+            if (rangefinderHUD == null)
+                rangefinderHUD = new RangefinderHUD();
 
-            rangeFinderHUD.Setup();
-            rangeFinderHUD.SetEnabled(EnableRangeFinder);
-            isInitialized = rangeFinderHUD.IsAlive;
+            rangefinderHUD.Setup();
+            rangefinderHUD.SetEnabled(EnableRangefinder);
+            isInitialized = rangefinderHUD.IsAlive;
         }
         catch (Exception ex)
         {
-            SparrohPlugin.Logger.LogError($"Failed to initialize RangeFinder: {ex.Message}");
+            SparrohPlugin.Logger.LogError($"Failed to initialize Rangefinder: {ex.Message}");
             isInitialized = false;
         }
     }
 
-    public static void UpdateRangeFinder()
+    public static void UpdateRangefinder()
     {
-        if (!EnableRangeFinder)
+        if (!EnableRangefinder)
             return;
 
         // Recreate if HUD was destroyed (menu / mission teardown)
-        if (rangeFinderHUD == null || !rangeFinderHUD.IsAlive)
+        if (rangefinderHUD == null || !rangefinderHUD.IsAlive)
         {
             isInitialized = false;
             Initialize();
@@ -58,36 +58,36 @@ internal static class RangeFinderSystem
         {
             if (Camera.main == null)
             {
-                rangeFinderHUD.UpdateRange(-1f);
+                rangefinderHUD.UpdateRange(-1f);
                 return;
             }
 
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
 
             if (Physics.Raycast(ray, out RaycastHit hit, MaxRange, raycastLayers))
-                rangeFinderHUD.UpdateRange(hit.distance);
+                rangefinderHUD.UpdateRange(hit.distance);
             else
-                rangeFinderHUD.UpdateRange(-1f);
+                rangefinderHUD.UpdateRange(-1f);
         }
         catch (Exception ex)
         {
             SparrohPlugin.Logger.LogError($"Error updating rangefinder: {ex.Message}");
-            rangeFinderHUD?.UpdateRange(-1f);
+            rangefinderHUD?.UpdateRange(-1f);
         }
     }
 
     public static void SetEnabled(bool enabled)
     {
-        if (rangeFinderHUD != null)
-            rangeFinderHUD.SetEnabled(enabled);
+        if (rangefinderHUD != null)
+            rangefinderHUD.SetEnabled(enabled);
     }
 
     public static void Cleanup()
     {
-        if (rangeFinderHUD != null)
+        if (rangefinderHUD != null)
         {
-            rangeFinderHUD.Destroy();
-            rangeFinderHUD = null;
+            rangefinderHUD.Destroy();
+            rangefinderHUD = null;
         }
         isInitialized = false;
     }

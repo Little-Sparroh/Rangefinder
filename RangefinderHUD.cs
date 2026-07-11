@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Thin wrapper around HudHandle for the rangefinder display.
 /// </summary>
-public class RangeFinderHUD
+public class RangefinderHUD
 {
     private HudHandle hud;
 
@@ -23,7 +23,7 @@ public class RangeFinderHUD
         else if (Pigeon.Movement.PlayerLook.Instance != null)
             parent = Pigeon.Movement.PlayerLook.Instance.DefaultHUDParent;
 
-        var builder = HudBuilder.Create("RangeFinderHUD")
+        var builder = HudBuilder.Create("RangefinderHUD")
             .Size(200f, 40f)
             .Pivot(new Vector2(0.5f, 0.5f))
             .AddText("RangeText", fontSize: 22f, alignment: TextAlignmentOptions.Center);

@@ -11,13 +11,13 @@ public class SparrohPlugin : BaseUnityPlugin
 
 {
     public const string PluginGUID = "sparroh.rangefinder";
-    public const string PluginName = "RangeFinder";
+    public const string PluginName = "Rangefinder";
     public const string PluginVersion = "1.0.0";
 
     internal static new ManualLogSource Logger;
 
     private Harmony harmony;
-    private RangeFinderMod rangeFinder;
+    private RangefinderMod rangefinder;
 
     private void Awake()
     {
@@ -50,11 +50,11 @@ public class SparrohPlugin : BaseUnityPlugin
 
         try
         {
-            rangeFinder = new RangeFinderMod(configFile, harmony);
+            rangefinder = new RangefinderMod(configFile, harmony);
         }
         catch (Exception ex)
         {
-            Logger.LogError($"Failed to initialize RangeFinder: {ex.Message}");
+            Logger.LogError($"Failed to initialize Rangefinder: {ex.Message}");
         }
 
         try
@@ -73,20 +73,20 @@ public class SparrohPlugin : BaseUnityPlugin
     {
         try
         {
-            if (rangeFinder != null) rangeFinder.UpdateHudVisibility();
+            if (rangefinder != null) rangefinder.UpdateHudVisibility();
         }
         catch (Exception ex)
         {
-            Logger.LogError($"Error in RangeFinder.UpdateHudVisibility(): {ex.Message}");
+            Logger.LogError($"Error in Rangefinder.UpdateHudVisibility(): {ex.Message}");
         }
 
         try
         {
-            if (rangeFinder != null) rangeFinder.Update();
+            if (rangefinder != null) rangefinder.Update();
         }
         catch (Exception ex)
         {
-            Logger.LogError($"Error in RangeFinder.Update(): {ex.Message}");
+            Logger.LogError($"Error in Rangefinder.Update(): {ex.Message}");
         }
     }
 
@@ -94,11 +94,11 @@ public class SparrohPlugin : BaseUnityPlugin
     {
         try
         {
-            if (rangeFinder != null) rangeFinder.OnDestroy();
+            if (rangefinder != null) rangefinder.OnDestroy();
         }
         catch (Exception ex)
         {
-            Logger.LogError($"Error in RangeFinder.OnDestroy(): {ex.Message}");
+            Logger.LogError($"Error in Rangefinder.OnDestroy(): {ex.Message}");
         }
 
         try

@@ -1,4 +1,4 @@
-# RangeFinder
+# Rangefinder
 
 A BepInEx mod for MycoPunk that displays the distance to whatever you're aiming at in the center of the HUD.
 
@@ -36,7 +36,7 @@ dotnet build --configuration Release
 2. The mod will be automatically installed to the correct directory
 
 **Manual Installation**:
-1. Place the built `RangeFinder.dll` in your `<MycoPunk Directory>/BepInEx/plugins/` folder
+1. Place the built `Rangefinder.dll` in your `<MycoPunk Directory>/BepInEx/plugins/` folder
 
 ### Executing program
 

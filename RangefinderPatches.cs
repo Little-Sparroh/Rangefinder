@@ -2,69 +2,69 @@ using BepInEx.Configuration;
 using HarmonyLib;
 using System;
 
-public class RangeFinderMod
+public class RangefinderMod
 {
-    public static ConfigEntry<bool> enableRangeFinder;
-    public static ConfigEntry<float> rangeFinderMaxRange;
+    public static ConfigEntry<bool> enableRangefinder;
+    public static ConfigEntry<float> rangefinderMaxRange;
     private readonly ConfigFile configFile;
     private readonly Harmony harmony;
 
-    public RangeFinderMod(ConfigFile configFile, Harmony harmony)
+    public RangefinderMod(ConfigFile configFile, Harmony harmony)
     {
         this.configFile = configFile;
         this.harmony = harmony;
 
-        enableRangeFinder = configFile.Bind("General", "EnableRangefinderHUD", true, "Enable the rangefinder display");
-        rangeFinderMaxRange = configFile.Bind("General", "RangefinderMaxRange", 500f, "Maximum range for rangefinder (meters)");
+        enableRangefinder = configFile.Bind("General", "EnableRangefinderHUD", true, "Enable the rangefinder display");
+        rangefinderMaxRange = configFile.Bind("General", "RangefinderMaxRange", 500f, "Maximum range for rangefinder (meters)");
 
-        enableRangeFinder.SettingChanged += OnEnableRangeFinderChanged;
+        enableRangefinder.SettingChanged += OnEnableRangefinderChanged;
 
-        harmony.PatchAll(typeof(RangeFinderPatches));
+        harmony.PatchAll(typeof(RangefinderPatches));
     }
 
     public void UpdateHudVisibility()
     {
-        RangeFinderSystem.SetEnabled(enableRangeFinder.Value);
+        RangefinderSystem.SetEnabled(enableRangefinder.Value);
     }
 
     public void Update()
     {
-        RangeFinderSystem.UpdateRangeFinder();
+        RangefinderSystem.UpdateRangefinder();
     }
 
     public void OnDestroy()
     {
-        RangeFinderSystem.Cleanup();
+        RangefinderSystem.Cleanup();
         harmony.UnpatchSelf();
     }
 
-    private void OnEnableRangeFinderChanged(object sender, EventArgs e)
+    private void OnEnableRangefinderChanged(object sender, EventArgs e)
     {
         UpdateHudVisibility();
     }
 
     [HarmonyPatch]
-    public static class RangeFinderPatches
+    public static class RangefinderPatches
     {
         [HarmonyPostfix]
         [HarmonyPatch(typeof(MissionHUD), "Start")]
         public static void MissionHUD_Start_Postfix()
         {
-            RangeFinderSystem.Initialize();
+            RangefinderSystem.Initialize();
         }
 
         [HarmonyPostfix]
         [HarmonyPatch(typeof(MissionHUD), "Update")]
         public static void MissionHUD_Update_Postfix()
         {
-            RangeFinderSystem.UpdateRangeFinder();
+            RangefinderSystem.UpdateRangefinder();
         }
 
         [HarmonyPostfix]
         [HarmonyPatch(typeof(MissionHUD), "OnDestroy")]
         public static void MissionHUD_OnDestroy_Postfix()
         {
-            RangeFinderSystem.Cleanup();
+            RangefinderSystem.Cleanup();
         }
     }
 }

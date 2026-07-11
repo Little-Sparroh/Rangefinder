@@ -3,7 +3,7 @@ schemaVersion = "0.0.1"
 
 [package]
 namespace = "Sparroh"
-name = "RangeFinder"
+name = "Rangefinder"
 description = "Displays the distance to whatever you're aiming at in the center of the HUD."
 websiteUrl = "https://github.com/Little-Sparroh/Rangefinder"
 containsNsfwContent = false
@@ -19,8 +19,8 @@ readme = "README.md"
 outdir = "build"
 
 [[build.copy]]
-source = "bin/Release/net48/RangeFinder.dll"
-target = "BepInEx/plugins/RangeFinder.dll"
+source = "bin/Release/net48/Rangefinder.dll"
+target = "BepInEx/plugins/Rangefinder.dll"
 
 [[build.copy]]
 source = "CHANGELOG.md"
