@@ -44,12 +44,16 @@ public class RangefinderHUD
         if (!IsAlive || hud.Primary == null)
             return;
 
+        Color value = RangefinderMod.valueColor != null ? RangefinderMod.valueColor.Value : UIColors.Sky;
+        Color noTarget = RangefinderMod.noTargetColor != null ? RangefinderMod.noTargetColor.Value : UIColors.TextMuted;
+
         if (distance >= 1000f)
-            hud.Primary.Text = RichText.Colorize("∞ m", UIColors.Sky);
+            hud.Primary.Text = RichText.Colorize("∞ m", value);
         else if (distance < 0f)
-            hud.Primary.Text = RichText.Colorize("--- m", UIColors.TextMuted);
+            hud.Primary.Text = RichText.Colorize("--- m", noTarget);
         else
-            hud.Primary.Text = RichText.Colorize($"{distance:F1} m", UIColors.Sky);
+            hud.Primary.Text = RichText.Colorize($"{distance:F1} m", value);
+
     }
 
     public void SetEnabled(bool enabled)
