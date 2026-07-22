@@ -9,12 +9,16 @@ public class RangefinderHUD
 {
     private HudHandle hud;
 
-    public bool IsAlive => hud != null && hud.GameObject != null && hud.Primary != null;
+    public bool IsAlive => HudHandle.IsValid(hud) && hud.Primary != null;
 
     public void Setup()
     {
+        if (hud != null && !hud.IsAlive)
+            hud = null;
+
         if (IsAlive)
             return;
+
 
         // Prefer reticle (consistent with other Sparroh HUDs); fall back to DefaultHUDParent.
         Transform parent = null;
@@ -66,9 +70,10 @@ public class RangefinderHUD
     {
         if (hud != null)
         {
-            if (hud.GameObject != null)
+            if (hud.IsAlive)
                 hud.Destroy();
             hud = null;
         }
     }
+
 }

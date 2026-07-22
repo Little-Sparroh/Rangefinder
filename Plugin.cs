@@ -12,7 +12,7 @@ public class SparrohPlugin : BaseUnityPlugin
 {
     public const string PluginGUID = "sparroh.rangefinder";
     public const string PluginName = "Rangefinder";
-    public const string PluginVersion = "1.0.0";
+    public const string PluginVersion = "1.0.1";
 
     internal static new ManualLogSource Logger;
 
